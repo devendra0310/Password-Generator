@@ -9,12 +9,32 @@ let btn=document.querySelector(".btn");
 let copyTool=document.querySelector(".toolkit");
 let copyIcon=document.querySelector(".pcopy");
 let checksArr=document.querySelectorAll(".checkboxes");
+let light=document.querySelector(".light");
 let symbolArr="!@#$%&*?+-*/"
 
 let password="";
 let passwordLength=10;
 let checks=0;
 sliderfun();
+
+function calcStrength(){
+    const up=ucase.checked;
+    const low=lcase.checked;
+    const numc=num.checked;
+    const sym=symbol.checked;
+    if(up && low && numc && sym){
+    light.style.background="green";
+    light.style.boxShadow="0px 0px 11px rgb(0,128,0)";
+    }
+    else if((up || low) && (numc || sym)){
+        light.style.background="yellow";
+        light.style.boxShadow="0px 0px 11px rgb(255,255,0)";
+        }
+    else{
+        light.style.background="red";
+        light.style.boxShadow="0px 0px 11px rgb(255,0,0)";
+    }
+}
 
 function sliderfun(){
     slider.value=passwordLength;
@@ -114,6 +134,7 @@ btn.addEventListener('click',()=>{
         password+=checkFunc[ind]();
     }
     passwordField.value=password;
+    calcStrength();
 
 })
 
